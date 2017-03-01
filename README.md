@@ -1,7 +1,56 @@
 # ナンバーリンクを解くスクリプト
 
+## 使い方
 
-## 例題
+### 準備
+
+```bash
+$ npm install
+```
+
+### 実行
+
+```
+$ ./number-link-cli.js -h
+
+  Usage: number-link-cli [puzzle]
+
+  Options:
+
+    -h, --help     output usage information
+    -V, --version  output the version number
+
+  if puzzle is not specified, please input puzzle from stdin
+
+  Puzzle format: <w>x<h>:<grid>
+       w: width
+       h: height
+    grid: numbers and dots
+
+  Puzzle example: 6x6:3......4.31........2.....1.4.2......
+```
+
+コマンドラインで直接わたす
+
+```bash
+$ ./number-link.cli.js 6x6:3......4.31........2.....1.4.2......
+```
+
+または、標準入力から渡す
+
+```bash
+$ ./number-link-cli.js
+Please input puzzle.
+6x6:3......4.31........2.....1.4.2......
+```
+
+## なぜ作ったのか？
+
+スリザーリンクを解くスクリプトを作っている最中に、`SAT Solver`なる便利そうなツールがあり、npmで`logic-solver`というのSAT Solverの実装を見つけたので使ってみたかった。
+
+## 作る前に考えたこと
+
+### 例題
 http://drysyrup333.blog.fc2.com/blog-entry-135.htmlより
 
 6x6のサイズ
@@ -27,9 +76,9 @@ http://drysyrup333.blog.fc2.com/blog-entry-135.htmlより
 ```
 と置くことにします。
 
-## 制約を考える
+### 制約を考える
 
-### ルール
+#### ルール
 
 http://www.nikoli.com/ja/puzzles/numberlink/rule.htmlより
 
@@ -40,21 +89,26 @@ http://www.nikoli.com/ja/puzzles/numberlink/rule.htmlより
 
 調べて見ると、もう一つ
 
-> 5. すべてのマスに線が通る。
+> すべてのマスに線が通る。
 
 というのがあるらしい。
-5.の制限がないと、別解の余地ができるみたい。(そういった別解のことを「関西解」というらしいです。)
+この制限がないと、別解の余地ができるみたい。(そういった別解のことを「関西解」というらしいです。)
 
-### 用語定義
+#### 用語定義
 
 * Matrix : 問題の全体の画面
 * Element: それぞれのマス目
 * Anchor: 問題で数字が指定されているElement
+* Blank: 数字が指定されていない空白のElement
 
-### 制約
+#### 制約
+
+ナンバーリンクは、「線をつなぐ」→「Elementに数字を置いていく」と置き換えることができて、解けた状態では、あるAnchorから同じ数字を辿っていくと、もう一方のAnchorにたどり着ける、状態になっている。
+
+なので、制約としては、
 
 1. Elementには必ず１つだけ数字が入る
-2. あるElementの上下左右にある４つのElementのうち、必ず2つが同じ数字になる(ルール#1)
-3. Anchorでは、上下左右にある4つのElementのうち、必ず1つだけが同じ数字になる
+2. Blankでは、隣り合うElementのうち、2つが同じ数字になる
+3. Anchorでは、隣り合うElementのうち、1つだけが同じ数字になる
 
-多分これだけ。
+多分これだけで、いけるはず。
