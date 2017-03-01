@@ -51,7 +51,7 @@ Please input puzzle.
 ## 作る前に考えたこと
 
 ### 例題
-http://drysyrup333.blog.fc2.com/blog-entry-135.htmlより
+http://drysyrup333.blog.fc2.com/blog-entry-135.html より
 
 6x6のサイズ
 ```text
@@ -80,7 +80,7 @@ http://drysyrup333.blog.fc2.com/blog-entry-135.htmlより
 
 #### ルール
 
-http://www.nikoli.com/ja/puzzles/numberlink/rule.htmlより
+http://www.nikoli.com/ja/puzzles/numberlink/rule.html より
 
 > 1. 白マスに線を引いて、同じ数字どうしをつなげましょう。
 > 2. 線は、マスの中央を通るようにタテヨコに引きます。線を交差させたり、枝分かれさせたりしてはいけません。
@@ -103,7 +103,7 @@ http://www.nikoli.com/ja/puzzles/numberlink/rule.htmlより
 
 #### 制約
 
-ナンバーリンクは、「線をつなぐ」→「Elementに数字を置いていく」と置き換えることができて、解けた状態では、あるAnchorから同じ数字を辿っていくと、もう一方のAnchorにたどり着ける、状態になっている。
+ナンバーリンクは、「線をつなぐ」→「Elementに数字を置いていく」と置き換えることができて、解けた状態では、あるAnchorから同じ数字を辿っていくと、もう一方のAnchorにたどり着ける状態になっている。
 
 なので、制約としては、
 
