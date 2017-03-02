@@ -19,53 +19,27 @@ describe("Matrix", () => {
         matrix.parseGrid(sample_grid);
 
         // 個別の値
-        expect(matrix.getValue(1, 1)).to.be.equal(3);
-        expect(matrix.getValue(2, 2)).to.be.equal(4);
-        expect(matrix.getValue(2, 4)).to.be.equal(3);
-        expect(matrix.getValue(2, 5)).to.be.equal(1);
-        expect(matrix.getValue(4, 2)).to.be.equal(2);
-        expect(matrix.getValue(5, 2)).to.be.equal(1);
-        expect(matrix.getValue(5, 4)).to.be.equal(4);
-        expect(matrix.getValue(5, 6)).to.be.equal(2);
+        // 3->0 / 4->1 / 1->2 / 2->3
+        expect(matrix.elements['0,0']).to.be.equal(0);
+        expect(matrix.elements['1,1']).to.be.equal(1);
+        expect(matrix.elements['3,1']).to.be.equal(0);
+        expect(matrix.elements['4,1']).to.be.equal(2);
+        expect(matrix.elements['1,3']).to.be.equal(3);
+        expect(matrix.elements['1,4']).to.be.equal(2);
+        expect(matrix.elements['3,4']).to.be.equal(1);
+        expect(matrix.elements['5,4']).to.be.equal(3);
 
-        expect(matrix.isAnchor(1, 1)).to.be.true;
+        expect(matrix.isAnchor('0,0')).to.be.true;
 
-        expect(matrix.getValue(6, 6)).to.be.null;
+        expect(matrix.elements['5,5']).to.be.null;
     });
 
-    it("anchorStatus", () => {
+    it("parseGrid peers&bits", () => {
         matrix.parseGrid(sample_grid);
-        let status = matrix.anchorStatus();
-        expect(status.max_value).to.be.equal(4);
-        expect(status.need_bits).to.be.equal(3);
 
-        // 強引に値を変えてみる
-        matrix.max_anchor = 8;
-        status = matrix.anchorStatus();
-        expect(status.max_value).to.be.equal(8);
-        expect(status.need_bits).to.be.equal(4);
-
-        matrix.max_anchor = 15;
-        status = matrix.anchorStatus();
-        expect(status.need_bits).to.be.equal(4);
-
-        matrix.max_anchor = 16;
-        status = matrix.anchorStatus();
-        expect(status.need_bits).to.be.equal(5);
-    });
-
-    it("eachElement", () => {
-        let counter = 0;
-        matrix.parseGrid(sample_grid);
-        matrix.eachElement((key, anchor_value) => {
-            counter++;
-
-            if (key === '1,1') {
-                expect(anchor_value).to.be.equal(3);
-            } else if (key === '1,2') {
-                expect(anchor_value).to.be.null;
-            }
-        });
-        expect(counter).to.be.equal(36);
+        let key = Element.id(1, 0);
+        let to_be = ['1,1', '0,0', '2,0'];
+        expect(matrix.peers[key]).to.be.eql(to_be);
+        expect(matrix.bits[key]).not.to.be.null;
     });
 });
