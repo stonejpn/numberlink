@@ -19,15 +19,15 @@ describe("Matrix", () => {
         matrix.parseGrid(sample_grid);
 
         // 個別の値
-        // 3->0 / 4->1 / 1->2 / 2->3
-        expect(matrix.elements['0,0']).to.be.equal(0);
-        expect(matrix.elements['1,1']).to.be.equal(1);
-        expect(matrix.elements['3,1']).to.be.equal(0);
-        expect(matrix.elements['4,1']).to.be.equal(2);
-        expect(matrix.elements['1,3']).to.be.equal(3);
-        expect(matrix.elements['1,4']).to.be.equal(2);
-        expect(matrix.elements['3,4']).to.be.equal(1);
-        expect(matrix.elements['5,4']).to.be.equal(3);
+        // 3->1 / 4->2 / 1->3 / 2->4
+        expect(matrix.elements['0,0']).to.be.equal(1);
+        expect(matrix.elements['1,1']).to.be.equal(2);
+        expect(matrix.elements['3,1']).to.be.equal(1);
+        expect(matrix.elements['4,1']).to.be.equal(3);
+        expect(matrix.elements['1,3']).to.be.equal(4);
+        expect(matrix.elements['1,4']).to.be.equal(3);
+        expect(matrix.elements['3,4']).to.be.equal(2);
+        expect(matrix.elements['5,4']).to.be.equal(4);
 
         expect(matrix.isAnchor('0,0')).to.be.true;
 
